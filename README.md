@@ -6,7 +6,7 @@ Jensen Library wants to automate their working process to reduce operational cos
 
 From `authors` they want to know the `first_name` and `last_name` which are strings of at most 60 characters.
 
-From `books` they want to know the `isbn` which is a string of exactly 13 characters and the title which is a
+From `books` they want to know the `isbn` which is a string of exactly 13 characters and the `title` which is a
 string of at most 200 characters. They also want to know the lead author, which is, from all the authors of the
 book, the one with the highest relevance. One author may be lead author of many books, but one book has exactly
 one lead author.
