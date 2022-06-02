@@ -36,14 +36,14 @@ public class Authors extends TableTestBase {
     }
 
     @Test
-    public void firstNameIsAtMost64CharactersLong() throws SQLException {
+    public void firstNameIsAtMost60CharactersLong() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("authors", "first_name");
         Assertions.assertNotNull(column);
         Assertions.assertEquals(60, column.getMaxLength());
     }
 
     @Test
-    public void lastNameIsAtMost64CharactersLong() throws SQLException {
+    public void lastNameIsAtMost60CharactersLong() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("authors", "last_name");
         Assertions.assertNotNull(column);
         Assertions.assertEquals(60, column.getMaxLength());

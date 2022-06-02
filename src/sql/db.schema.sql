@@ -66,7 +66,7 @@ CREATE TABLE `customers` (
 
 CREATE TABLE `books` (
   `id` int NOT NULL,
-  `isbn` varchar(13) DEFAULT NULL,
+  `isbn` char(13) DEFAULT NULL,
   `title` varchar(200) DEFAULT NULL,
   `id_author` int DEFAULT NULL,
   PRIMARY KEY (`id`),

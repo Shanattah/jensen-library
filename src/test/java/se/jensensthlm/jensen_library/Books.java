@@ -32,64 +32,46 @@ public class Books extends TableTestBase {
     public void titleIsAtMost200CharactersLong() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("books", "title");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(200, column.getMaxLength());
+        Assertions.assertTrue(200 <= column.getMaxLength());
     }
 
     @Test
     public void isbnIsString() throws SQLException {
         ColumnType column = info.getTypes().findByColumn("books", "isbn");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals("varchar", column.getType());
+        Assertions.assertEquals("char", column.getType());
     }
     @Test
     public void isbnIsExactly13CharactersLong() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("books", "title");
+        ColumnType column = info.getTypes().findByColumn("books", "isbn");
         Assertions.assertNotNull(column);
         Assertions.assertEquals(13, column.getMaxLength());
     }
     @Test
-    public void id_todo_listIsInt() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("books", "id_todo_list");
+    public void id_authorIsInt() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("books", "id_author");
         Assertions.assertNotNull(column);
         Assertions.assertEquals("int", column.getType());
     }
     @Test
-    public void due_dateIsDate() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("books", "due_date");
-        Assertions.assertNotNull(column);
-        Assertions.assertEquals("date", column.getType());
-    }
-    @Test
-    public void isDoneIsBoolean() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("books", "is_done");
-        Assertions.assertNotNull(column);
-        Assertions.assertEquals("tinyint", column.getType());
-    }
-    @Test
-    public void isImportantIsBoolean() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("books", "is_important");
-        Assertions.assertNotNull(column);
-        Assertions.assertEquals("tinyint", column.getType());
-    }
-    @Test
-    public void foreignKeyExistsBetweenTodos_Todo_lists() throws SQLException {
+    public void foreignKeyExistsBetweenBooks_Authors() throws SQLException {
         ForeignKeysList foreignKeysList = info
                 .getForeignKeys()
                 .filterByChildTable("books")
-                .filterByParentTable("todo_lists");
+                .filterByParentTable("authors");
 
         Assertions.assertNotNull(foreignKeysList);
     }
     @Test
-    public void id_userReferencesUsers() throws SQLException {
+    public void id_authorReferencesAuthors() throws SQLException {
         ForeignKey fkIdUser = info
                 .getForeignKeys()
-                .findByChildColumn(new Column("books", "id_todo_list"));
+                .findByChildColumn(new Column("books", "id_author"));
 
         Assertions.assertNotNull(fkIdUser);
         Assertions.assertTrue(fkIdUser
                 .getParentColumn()
-                .equals(new Column("todo_lists", "id"))
+                .equals(new Column("authors", "id"))
         );
     }
 }
