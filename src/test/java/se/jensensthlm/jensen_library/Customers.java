@@ -12,53 +12,66 @@ public class Customers extends TableTestBase {
 
     @Test
     public void tableHasPrimaryKey() throws SQLException {
-        ColumnsList columns = info.getPrimaryKeys().filterByTableName("users");
+        ColumnsList columns = info.getPrimaryKeys().filterByTableName("customers");
         Assertions.assertEquals(1, columns.count());
     }
 
     @Test
     public void primaryKeyIsCalledId() throws SQLException {
-        Column column = info.getPrimaryKeys().find("users", "id");
+        Column column = info.getPrimaryKeys().find("customers", "id");
         Assertions.assertNotNull(column);
     }
 
     @Test
-    public void userNameIsString() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("users", "username");
+    public void firstNameIsString() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("customers", "first_name");
         Assertions.assertNotNull(column);
         Assertions.assertEquals("varchar", column.getType());
     }
 
     @Test
-    public void userNameIsAtMost64CharactersLong() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("users", "username");
+    public void firstNameIsAtMost60CharactersLong() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("customers", "first_name");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(64, column.getMaxLength());
+        Assertions.assertEquals(60, column.getMaxLength());
     }
     @Test
-    public void nameIsString() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("users", "name");
+    public void lastNameIsString() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("customers", "last_name");
         Assertions.assertNotNull(column);
         Assertions.assertEquals("varchar", column.getType());
     }
 
     @Test
-    public void nameIsAtMost50CharactersLong() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("users", "name");
+    public void lastNameIsAtMost60CharactersLong() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("customers", "last_name");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(50, column.getMaxLength());
+        Assertions.assertEquals(60, column.getMaxLength());
     }
     @Test
     public void emailIsString() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("users", "email");
+        ColumnType column = info.getTypes().findByColumn("customers", "email");
         Assertions.assertNotNull(column);
         Assertions.assertEquals("varchar", column.getType());
     }
 
     @Test
-    public void emailIsAtMost50CharactersLong() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("users", "email");
+    public void emailIsAtMost60CharactersLong() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("customers", "email");
         Assertions.assertNotNull(column);
-        Assertions.assertEquals(50, column.getMaxLength());
+        Assertions.assertEquals(60, column.getMaxLength());
+    }
+    @Test
+    public void phoneNumberIsString() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("customers", "phone_number");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals("varchar", column.getType());
+    }
+
+    @Test
+    public void phoneNumberIsAtMost24CharactersLong() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("customers", "phone_number");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals(24, column.getMaxLength());
     }
 }

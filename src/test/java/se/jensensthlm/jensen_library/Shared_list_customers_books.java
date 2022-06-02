@@ -13,63 +13,75 @@ public class Shared_list_customers_books extends TableTestBase {
 
 
     @Test
-    public void id_userIsInt() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("shared_todo_lists", "id_user");
+    public void id_customerIsInt() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("shared_list_customers_books", "id_customer");
         Assertions.assertNotNull(column);
         Assertions.assertEquals("int", column.getType());
     }
     @Test
-    public void id_todo_listIsInt() throws SQLException {
-        ColumnType column = info.getTypes().findByColumn("shared_todo_lists", "id_todo_list");
+    public void id_bookIsInt() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("shared_list_customers_books", "id_book");
         Assertions.assertNotNull(column);
         Assertions.assertEquals("int", column.getType());
     }
     @Test
     public void foreignKeyExists() throws SQLException {
-        ForeignKeysList foreignKeysList = info.getForeignKeys().filterByChildTable("shared_todo_lists");
+        ForeignKeysList foreignKeysList = info.getForeignKeys().filterByChildTable("shared_list_customers_books");
         Assertions.assertTrue(foreignKeysList.count() > 0);
     }
 
     @Test
-    public void foreignKeyExistsBetweenShared_todo_lists_Users() throws SQLException {
+    public void foreignKeyExistsBetweenShared_list_customers_books_Books() throws SQLException {
         ForeignKeysList foreignKeysList = info
                 .getForeignKeys()
-                .filterByChildTable("shared_todo_lists")
-                .filterByParentTable("users");
+                .filterByChildTable("shared_list_customers_books")
+                .filterByParentTable("books");
 
         Assertions.assertNotNull(foreignKeysList);
     }
     @Test
-    public void foreignKeyExistsBetweenShared_todo_lists_Todo_lists() throws SQLException {
+    public void foreignKeyExistsBetweenShared_list_customers_books_Customers() throws SQLException {
         ForeignKeysList foreignKeysList = info
                 .getForeignKeys()
-                .filterByChildTable("shared_todo_lists")
-                .filterByParentTable("todo_lists");
+                .filterByChildTable("shared_list_customers_books")
+                .filterByParentTable("customers");
 
         Assertions.assertNotNull(foreignKeysList);
     }
     @Test
-    public void id_userReferencesUsers() throws SQLException {
-        ForeignKey fkIdUser = info
+    public void id_bookReferencesBooks() throws SQLException {
+        ForeignKey fkIdBook = info
                 .getForeignKeys()
-                .findByChildColumn(new Column("shared_todo_lists", "id_user"));
+                .findByChildColumn(new Column("shared_list_customers_books", "id_book"));
 
-        Assertions.assertNotNull(fkIdUser);
-        Assertions.assertTrue(fkIdUser
+        Assertions.assertNotNull(fkIdBook);
+        Assertions.assertTrue(fkIdBook
                 .getParentColumn()
-                .equals(new Column("users", "id"))
+                .equals(new Column("books", "id"))
         );
     }
     @Test
-    public void id_todo_listReferencesTodo_lists() throws SQLException {
+    public void id_customersReferencesCustomers() throws SQLException {
         ForeignKey fkIdTodoLists = info
                 .getForeignKeys()
-                .findByChildColumn(new Column("shared_todo_lists", "id_todo_list"));
+                .findByChildColumn(new Column("shared_list_customers_books", "id_customer"));
 
         Assertions.assertNotNull(fkIdTodoLists);
         Assertions.assertTrue(fkIdTodoLists
                 .getParentColumn()
-                .equals(new Column("todo_lists", "id"))
+                .equals(new Column("customers", "id"))
         );
+    }
+    @Test
+    public void loanDaysIsInt() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("shared_list_customers_books", "loan_days");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals("int", column.getType());
+    }
+    @Test
+    public void loanDateIsInt() throws SQLException {
+        ColumnType column = info.getTypes().findByColumn("shared_list_customers_books", "loan_date");
+        Assertions.assertNotNull(column);
+        Assertions.assertEquals("date", column.getType());
     }
 }

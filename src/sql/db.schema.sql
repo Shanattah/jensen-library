@@ -82,3 +82,23 @@ CREATE TABLE `shared_list_customers_books` (
   KEY `fk__shared_list_customers_books__books_idx` (`id_book`),
   CONSTRAINT `fk__shared_list_customers_books__books` FOREIGN KEY (`id_book`) REFERENCES `books` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk__shared_list_customers_books__customers` FOREIGN KEY (`id_customer`) REFERENCES `customers` (`id`) ON DELETE SET NULL ON UPDATE CASCADE);
+
+
+-- VG view
+
+CREATE
+    ALGORITHM = UNDEFINED
+    DEFINER = `root`@`localhost`
+    SQL SECURITY DEFINER
+VIEW `lazy_customer` AS
+    SELECT DISTINCT
+        `customers`.`id` AS `id`,
+        `customers`.`first_name` AS `first_name`,
+        `customers`.`last_name` AS `last_name`,
+        `customers`.`email` AS `email`,
+        `customers`.`phone_number` AS `phone_number`
+    FROM
+        (`shared_list_customers_books`
+        JOIN `customers` ON ((`customers`.`id` = `shared_list_customers_books`.`id_customer`)))
+    WHERE
+        ((`shared_list_customers_books`.`loan_date` + INTERVAL `shared_list_customers_books`.`loan_days` DAY) < CURDATE())
