@@ -74,4 +74,19 @@ public class Books extends TableTestBase {
                 .equals(new Column("authors", "id"))
         );
     }
+    @Test
+    public void foreignKeyUsesTheNamingConvention() throws SQLException {
+        ForeignKey fkIdBooks = info
+                .getForeignKeys()
+                .findByChildColumn(new Column("books", "id_author"));
+
+        Assertions.assertNotNull(fkIdBooks);
+        Assertions.assertTrue(fkIdBooks
+                .getName()
+                .equals("fk__%s__%s".formatted(
+                        fkIdBooks.getChildColumn().getTable(),
+                        fkIdBooks.getParentColumn().getTable()
+                ))
+        );
+    }
 }

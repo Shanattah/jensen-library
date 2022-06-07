@@ -84,4 +84,34 @@ public class Shared_list_customers_books extends TableTestBase {
         Assertions.assertNotNull(column);
         Assertions.assertEquals("date", column.getType());
     }
+    @Test
+    public void foreignKeyUsesTheNamingConvention() throws SQLException {
+        ForeignKey fkIdBooks = info
+                .getForeignKeys()
+                .findByChildColumn(new Column("shared_list_customers_books", "id_book"));
+
+        Assertions.assertNotNull(fkIdBooks);
+        Assertions.assertTrue(fkIdBooks
+                .getName()
+                .equals("fk__%s__%s".formatted(
+                        fkIdBooks.getChildColumn().getTable(),
+                        fkIdBooks.getParentColumn().getTable()
+                ))
+        );
+    }
+    @Test
+    public void foreignKeyUsesTheNamingConventionSecondFK() throws SQLException {
+        ForeignKey fkIdBooks = info
+                .getForeignKeys()
+                .findByChildColumn(new Column("shared_list_customers_books", "id_customer"));
+
+        Assertions.assertNotNull(fkIdBooks);
+        Assertions.assertTrue(fkIdBooks
+                .getName()
+                .equals("fk__%s__%s".formatted(
+                        fkIdBooks.getChildColumn().getTable(),
+                        fkIdBooks.getParentColumn().getTable()
+                ))
+        );
+    }
 }

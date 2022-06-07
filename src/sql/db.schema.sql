@@ -86,11 +86,7 @@ CREATE TABLE `shared_list_customers_books` (
 
 -- VG view
 
-CREATE
-    ALGORITHM = UNDEFINED
-    DEFINER = `root`@`localhost`
-    SQL SECURITY DEFINER
-VIEW `lazy_customer` AS
+CREATE VIEW `lazy_customer` AS
     SELECT DISTINCT
         `customers`.`id` AS `id`,
         `customers`.`first_name` AS `first_name`,
